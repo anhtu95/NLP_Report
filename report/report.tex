@@ -1,0 +1,88 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage[left=3cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+\lstset{
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily \fontsize{12}{15}\selectfont,   
+	% numbers=left,
+   frame=lrtb,
+tabsize=3
+}
+\usepackage{hyperref}  
+\usepackage{float}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage[nottoc]{tocbibind}
+\usepackage[english]{babel}
+\addto\captionsenglish{%
+ \renewcommand\chaptername{Phần}
+ \renewcommand{\contentsname}{Mục lục} 
+ \renewcommand{\listtablename}{Danh sách bảng}
+ \renewcommand{\listfigurename}{Danh sách hình vẽ}
+ \renewcommand{\tablename}{Bảng}
+ \renewcommand{\figurename}{Hình}
+ \renewcommand{\bibname}{Tài liệu tham khảo}
+}
+
+\begin{document}
+\thispagestyle{empty}
+\thisfancypage{
+\setlength{\fboxrule}{1pt}
+\doublebox}{}
+\begin{center}
+{\fontsize{16}{19}\fontfamily{cmr}\selectfont TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI\\
+VIỆN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG}\\
+\textbf{------------*******---------------}\\[1cm]
+\includegraphics[scale=0.13]{hust.jpg}\\[1.3cm]
+
+{\fontsize{32}{43}\fontfamily{cmr}\selectfont BÁO CÁO}\\[0.1cm]
+{\fontsize{38}{45}\fontfamily{cmr}\fontseries{b}\selectfont MÔN HỌC}\\[0.2cm]
+{\fontsize{19}{20}\fontfamily{phv}\selectfont Xử lý ngôn ngữ tự nhiên}\\[0.2cm]
+{\fontsize{13}{20}\fontfamily{cmr}\selectfont \emph{Đề tài: Phân tích quan điểm}}\\[2.5cm]
+\end{center}
+\hspace{1.5cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Nhóm sinh viên thực hiện:}
+
+\begin{longtable}{l c c}
+
+Họ và tên & MSSV  & Lớp\\
+
+Nguyễn Tuấn Đạt & 20130856 & CNTT2.02-K58 \\
+Phan Anh Tú &   20134501 & CNTT2.01-K58\\
+
+\end{longtable}
+
+\hspace{1cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giáo viên hướng dẫn: }PGS.TS Lê Thanh Hương \\[2cm]
+\begin{center}
+\fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 12--2016
+
+\end{center}
+\newpage
+\tableofcontents
+
+\chapter*{Lời cảm ơn}
+\phantomsection
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+Đề tài sẽ không thể hoàn thành nếu không nhờ có sự tận tình chỉ bảo và hướng dẫn của cô giáo PGS.TS Lê Thanh Hương. Mặc dù đã rất cố gắng để hoàn thành tốt nhưng trong quá trình làm việc, sai sót là điều không thể tránh khỏi. Nhóm chúng em mong nhận được nhận xét và phê bình của quý thầy cô để đề tài được hoàn thiện hơn đồng thời bổ sung những kiến thức còn thiếu sót cho chúng em.
+
+
+Chúng em xin chân thành cảm ơn!
+\listoftables
+\listoffigures
+ 
+ 
+\begin{thebibliography}{9}
+\end{thebibliography}
+
+
+\end{document}

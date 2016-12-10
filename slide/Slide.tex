@@ -1,0 +1,77 @@
+\documentclass[compress]{beamer}
+
+\usepackage[utf8]{vntex}
+\usepackage{longtable}
+\usepackage[utf8]{inputenc}
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{listings}
+\lstset{
+	language = Java,
+	frame = single,
+	tabsize = 3
+}
+
+\usetheme{Warsaw}
+%\usetheme{Antibes}
+%\usecolortheme{spruce}
+%\setbeamercolor{structure}{fg=cyan!90!blue}
+
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+    \insertshorttitle\hfill%
+    \insertframenumber\,/\,\inserttotalframenumber}
+      
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+}
+\AtBeginSubsection[] % Do nothing for \section*
+{
+\begin{frame}
+\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+}
+
+\author{Xử lý ngôn ngữ tự nhiên- PGS.TS Lê Thanh Hương}
+
+\begin{document}
+
+
+ 
+\begin{frame}
+\begin{center}
+\huge \bf Đề tài:\\ Phân tích quan điểm
+\end{center}
+\vspace{0.7cm}
+\textbf{Nhóm sinh viên thực hiện:}\\[0.1cm]
+\begin{columns}
+\column{.30\textwidth}
+Phan Anh Tú\\ 
+Nguyễn Tuấn Đạt 
+\column{.30\textwidth} 
+MSSV:20134501\\
+MSSV:20130856
+\column{.30\textwidth}
+Lớp:CNTT2.01-K58\\
+Lớp:CNTT2.02-K58
+\end{columns}
+\vspace{1cm}
+\textbf{Giảng viên:} PGS.TS Lê Thanh Hương
+\end{frame} 
+
+\begin{frame}{Phân công công việc}
+\begin{itemize}
+\item Nguyễn Tuấn Đạt
+
+\item Phan Anh Tú
+\end{itemize}
+\end{frame}
+  
+   
+\begin{frame}{Nội dung trình bày}
+\tableofcontents
+\end{frame}
+
+\end{document}
