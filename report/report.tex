@@ -84,7 +84,7 @@ Chúng em xin chân thành cảm ơn!
 Cùng với sự phát triển mạnh mẽ của ngành công nghệ thông tin và truyền thông, trí tuệ nhân tạo đang ngày càng phát triển và có thể nói trong tương lai không xa máy tính sẽ trở nên thông minh chẳng kém gì con người. Trong trí tuệ nhân tạo thì hai mảng học máy và xử lý ngôn ngữ tự nhiên là hai mảng tiềm năng và phát triển cực mạnh, là hai trong số rất nhiều mảng của trí tuệ nhân tạo được tập trung nghiên cứu nhiều nhất hiện nay.
 
 
-Là những sinh viên ngành công nghệ thông tin, là một kỹ sư công nghệ thông tin trong tương lai, chúng em nhận thấy cần phải trang bị cho mình những kiến thức nền tảng và những kinh nghiệm trong các bài toán thực tế về các mảng xử lý ngôn ngữ tự nhiên và học máy. Vì vậy, mục tiêu của bài tập lớn môn học này của chúng em là tìm hiểu lý thuyết và ứng dụng các kỹ thuật học máy cụ thể là hai phương pháp: \textbf{Support Vector Machine (SVM)} và \textbf{Deep Learning} (cụ thể là mạng \textbf{Recurrent Neural Network (RNN)} kết hợp với kỹ thuật \textbf{Long Short Term Memory (LSTM)}) vào bài toán phân tích quan điểm của mảng xử lý ngôn ngữ tự nhiên.
+Là những sinh viên ngành công nghệ thông tin, là một kỹ sư công nghệ thông tin trong tương lai, chúng em nhận thấy cần phải trang bị cho mình những kiến thức nền tảng và những kinh nghiệm trong các bài toán thực tế về các mảng xử lý ngôn ngữ tự nhiên và học máy. Vì vậy, mục tiêu của bài tập lớn môn học này của chúng em là tìm hiểu lý thuyết và ứng dụng các kỹ thuật học máy cụ thể là hai phương pháp: \textbf{Support Vector Machine (SVM)} và \textbf{Deep Learning} (\textbf{Long Short Term Memory (LSTM)}) vào bài toán phân tích quan điểm của mảng xử lý ngôn ngữ tự nhiên.
 
 
 Các nội dung triển khai trong đề tài này được thực hiện theo nhóm gồm hai sinh viên bao gồm: Nguyễn Tuấn Đạt và Phan Anh Tú. Trong đó dưới sự hướng dẫn của cô giáo PGS.TS Lê Thanh Hương, mỗi người phụ trách một số nội dung tách biệt nhau:
@@ -95,7 +95,7 @@ Các nội dung triển khai trong đề tài này được thực hiện theo n
 \end{itemize}
 \item Phan Anh Tú
 \begin{itemize}
-\item Tìm hiểu và cài đặt RNN-LSTM
+\item Tìm hiểu và cài đặt RNN,LSTM
 \end{itemize}
 \end{enumerate}
 Phần tiếp theo của báo cáo bao gồm các phần sau:
@@ -104,6 +104,7 @@ Phần tiếp theo của báo cáo bao gồm các phần sau:
 
 \chapter{Cơ sở lý thuyết}
 \section{Biểu diễn dữ liệu}
+\subsection{One-hot vector}
 \section{SVM}
 \section{Recurrent Neural Network (RNN)}
 \subsection{RNN}
@@ -129,9 +130,27 @@ Các điều cần chú ý:
 \end{itemize}
 
 \subsubsection{Vấn đề Long-Term Dependencies}
-
+Vấn đề  Long-Term Dependencies là vấn đề: trong xử lý tại bước hiện tại ta cần quá nhiều thông tin phụ thuộc không cần thiết của các bước trước.Một trong những đặc điểm nổi bật của RNN là mô hình này sẽ kết nối những thông tin phía trước để hỗ trợ cho bước xử lý hiện tại. Nhưng đôi khi ta chỉ cần dựa vào một số thông tin gần nhất để thực hiện bước xử lý hiện tại. Ví dụ trong bài toán đoán từ tiếp theo (\emph{sky}) trong đoạn văn có câu \emph{the clouds are in the sky} ta không cần những thông tin của quá nhiều từ trước đó ta vẫn có thể đoán được. Trong trường hợp này, khoảng cách tới cách thông tin liên quan được rút ngắn lại. Theo như mô hình chuẩn của RNN thì tất cả các thông tin của các bước phía trước đều được ghi nhớ lại và cung cấp cho bước xử lý hiện tại, dẫn đến việc dư thừa, không cần thiết. Vì vậy, mạng LSTM (Long Short Term Memory) đã xuất hiện để giải quyết vấn đề này.
 
 \subsection{LSTM}
+\subsubsection{Giới thiệu LSTM}
+Mạng LSTM là một dạng đặc biệt của mạng RNN. LSTM được thiết kế để khắc phục vấn đề Long-Term Dependencies của RNN. 
+\par Mô hình RNN chuẩn là việc lặp lại các module, các module này có cấu trúc đơn giản chỉ gồm một \textbf{tanh layer}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{rnn_tanh.jpg}
+\caption{Mô hình RNN chuẩn với hàm tanh}
+\end{figure}
+\par LSTM cũng có cấu trúc lặp tương tự nhưng các module lặp có cấu trúc khác. Thay vì chỉ có một \textbf{tanh layer}, ta có bốn layer tương tác với nhau. 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{lstm.png}
+\caption{Mô hình LSTM}
+\end{figure} 
+
+\subsubsection{Ý tưởng chính của LSTM}
+Điểm khác biệt lớn nhất của LSTM với RNN, đặc điểm nổi bật của LSTM chính là \textbf{cell state}	
+
 
 
 \chapter{Bài toán áp dụng}
@@ -141,6 +160,7 @@ Các điều cần chú ý:
 \begin{thebibliography}{9}
 \bibitem{1} \url{http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/}
 \bibitem{2} \url{http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+\bibitem{3} \url{http://cs224d.stanford.edu/syllabus.html}
 \end{thebibliography}
 
 
