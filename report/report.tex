@@ -69,7 +69,7 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \end{center}
 \newpage
 \tableofcontents
-\listoftables
+%\listoftables
 \listoffigures
 
 \chapter*{Lời cảm ơn}
@@ -149,7 +149,50 @@ Mạng LSTM là một dạng đặc biệt của mạng RNN. LSTM được thi�
 \end{figure} 
 
 \subsubsection{Ý tưởng chính của LSTM}
-Điểm khác biệt lớn nhất của LSTM với RNN, đặc điểm nổi bật của LSTM chính là \textbf{cell state}	
+\par Điểm khác biệt lớn nhất của LSTM với RNN, đặc điểm nổi bật của LSTM chính là \textbf{cell state}. Cell state giống như một băng chuyền, nó chạy xuyên thẳng qua các module, ở mỗi module chỉ áp dụng một vài tương tác nhỏ tuyến tính (minor linear interaction). Điều này giúp cho thông tin ít bị thay đổi xuyên suốt quá trình lan truyền thông tin qua các bước.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_cellstate.png}
+\caption{LSTM với cell state}
+\end{figure}
+\par LSTM có khả năng thêm hoặc bớt các thông tin vào cell state, được quy định một cách cẩn thận bởi cấu trúc được gọi là cổng. Nhờ các cổng này ta có thể tùy chọn các thông tin sẽ được truyền đi cho bước kế tiếp. Chúng được tạo bởi sigmoid neural net layer và pointwise multiplication operation.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_gate.png}
+\caption{LSTM gate}
+\end{figure}
+\par Hàm sigmoid có giá trị từ 0-1, mô tả độ lớn thông tin được phép truyền qua tại mỗi component.Nếu ta thu được 0 điều này có nghĩa là không cho bất kỳ thông tin nào đi qua, ngược lại nếu ta thu được 1 thì có nghĩa là cho phép mọi thứ đi qua. Một LSTM có ba cổng như vậy để bảo vệ và điều khiển cell state.
+
+\subsubsection{Phân tích một module của LSTM}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_module.png}
+\caption{Một module của LSTM}
+\end{figure}
+\par Bước đầu tiên trong một module của LSTM là quyết định xem thông tin nào cần loại bỏ khỏi cell state. Quá trình này được thực hiện bởi một \emph{sigmoid layer} được gọi là \emph{forget gate layer}. Đầu vào là $h_{t-1}$ (thông tin đến từ bước trước đó) và $x_t$ (đầu vào tại bước hiện tại) và đầu ra là một số trong khoảng $[0,1]$. 1 là giữ lại toàn bộ thông tin, 0 là loại bỏ toàn bộ thông tin.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_module_firststep.png}
+\caption{Forget gate layer}
+\end{figure}
+\par Bước tiếp theo là quyết định xem thông tin mới nào sẽ được lưu trữ trong cell state. Bước này gồm 2 phần. Đầu tiên, một \emph{sigmoid layer} cái được gọi là \emph{input gate layer} sẽ quyết định giá trị nào sẽ được cập nhật. Tiếp theo, một \emph{tanh layer} tạo ra vector các giá trị của các ứng cử viên mới $\tilde{C_t}$, cái sẽ được thêm vào cell state. 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_module_secondstep.png}
+\caption{Input gate layer}
+\end{figure} 
+\par Tiếp theo ta sẽ kết hợp 2 giá trị vừa được tạo để cập nhật vào cell state. Lúc cập nhật vào cell state cũ $C_{t-1}$ vào cell state mới $C_t$. Ta sẽ đưa hàm $f_t$ vào để quên đi những gì trước đó. Sau đó, thêm giá trị ứng viên mới $i_t*\tilde{C_t}$ để cập nhật cell state.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_module_update_cellstate.png}
+\caption{Cập nhật cell state}
+\end{figure}
+\par Cuối cùng, ta cần quyết định xem thông tin output ra là gì. Output cần dựa trên cell state nhưng sẽ được lọc bớt. Đầu tiên, áp ụng \emph{sigmoid layer} để quyết định phần nào của cell state sẽ được output. Sau đó, đẩy cell state qua hàm \emph{tanh} và nhân với giá trị của các phần của cell state sẽ được giữ lại để output \emph{sigmoid layer} vừa tính trước đó.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lstm_module_output.png}
+\caption{Output của một module}
+\end{figure}
 
 
 
@@ -161,6 +204,7 @@ Mạng LSTM là một dạng đặc biệt của mạng RNN. LSTM được thi�
 \bibitem{1} \url{http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/}
 \bibitem{2} \url{http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
 \bibitem{3} \url{http://cs224d.stanford.edu/syllabus.html}
+\bibitem{4} \url{https://ongxuanhong.wordpress.com/2016/09/16/long-short-term-memory-lstm/}
 \end{thebibliography}
 
 
