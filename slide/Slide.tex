@@ -240,21 +240,26 @@ $$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
 \subsection{Kết quả}
 \begin{frame}{LSTM}
 \begin{itemize}
+\item Mô hình: $INPUT \rightarrow WordEmbedding \rightarrow LSTM \rightarrow sigmoid \rightarrow output$
+\begin{itemize}
+\item Đầu vào là câu gồm 500 từ
+\item Chuyển thành 500 vector số thực 32 chiều.
+\item 100 module cuối cùng của LSTM đưa ra output 
+\item Output của 100 module đưa vào neuron sigmoid
+\end{itemize}
 \item Môi trường thực nghiệm:
 \begin{itemize}
 \item Hệ điều hành Unbutun 16.04 64 bit
 \item Intel Core i5-4210U CPU 1.70GHz $\times$ 4
-\item Ngôn ngữ lập trình Python
-\item Thư viện hỗ trợ Keras
 \end{itemize}
 \item Kết quả: Độ chính xác 84.97\%
-\\[0.3cm]{\small
+\\[0.2cm]{\small
 Epoch 1/3\\
 25000/25000 [======] - 498s - loss: 0.5891 - acc: 0.6910\\
 Epoch 2/3\\
 25000/25000 [======] - 472s - loss: 0.3168 - acc: 0.8696\\   
 Epoch 3/3\\
-25000/25000 [======] - 466s - loss: 0.2502 - acc: 0.9026\\[0.3cm]
+25000/25000 [======] - 466s - loss: 0.2502 - acc: 0.9026\\[0.2cm]
 Accuracy: 84.97\% \\
 }
 \end{itemize}
