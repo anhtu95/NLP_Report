@@ -72,6 +72,7 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 
 \end{center}
 \newpage
+\pdfbookmark{\contentsname}{toc}
 \tableofcontents
 %\listoftables
 \listoffigures
@@ -88,7 +89,7 @@ Chúng em xin chân thành cảm ơn!
 Cùng với sự phát triển mạnh mẽ của ngành công nghệ thông tin và truyền thông, trí tuệ nhân tạo đang ngày càng phát triển và có thể nói trong tương lai không xa máy tính sẽ trở nên thông minh chẳng kém gì con người. Trong trí tuệ nhân tạo thì hai mảng học máy và xử lý ngôn ngữ tự nhiên là hai mảng tiềm năng và phát triển cực mạnh, là hai trong số rất nhiều mảng của trí tuệ nhân tạo được tập trung nghiên cứu nhiều nhất hiện nay.
 
 
-Là những sinh viên ngành công nghệ thông tin, là một kỹ sư công nghệ thông tin trong tương lai, chúng em nhận thấy cần phải trang bị cho mình những kiến thức nền tảng và những kinh nghiệm trong các bài toán thực tế về các mảng xử lý ngôn ngữ tự nhiên và học máy. Vì vậy, mục tiêu của bài tập lớn môn học này của chúng em là tìm hiểu lý thuyết và ứng dụng các kỹ thuật học máy cụ thể là hai phương pháp: \textbf{Support Vector Machine (SVM)} và \textbf{Deep Learning} (\textbf{Long Short Term Memory (LSTM)}) vào bài toán phân tích quan điểm của mảng xử lý ngôn ngữ tự nhiên.
+Là những sinh viên ngành công nghệ thông tin, là một kỹ sư công nghệ thông tin trong tương lai, chúng em nhận thấy cần phải trang bị cho mình những kiến thức nền tảng và những kinh nghiệm trong các bài toán thực tế về các mảng xử lý ngôn ngữ tự nhiên và học máy. Vì vậy, mục tiêu của bài tập lớn môn học này của chúng em là tìm hiểu lý thuyết và ứng dụng các kỹ thuật học máy cụ thể là hai phương pháp: \textbf{Support Vector Machine (SVM)} và \textbf{Long Short Term Memory (LSTM)} vào bài toán phân tích quan điểm của mảng xử lý ngôn ngữ tự nhiên.
 
 
 Các nội dung triển khai trong đề tài này được thực hiện theo nhóm gồm hai sinh viên bao gồm: Nguyễn Tuấn Đạt và Phan Anh Tú. Trong đó dưới sự hướng dẫn của cô giáo PGS.TS Lê Thanh Hương, mỗi người phụ trách một số nội dung tách biệt nhau:
@@ -109,14 +110,45 @@ Phần tiếp theo của báo cáo bao gồm các phần sau:
 
 \chapter{Cơ sở lý thuyết}
 \section{Biểu diễn dữ liệu}
-Trong khi máy tính chỉ làm việc (tính toán) với các con số, các vector. Làm thế nào để máy tính có thể hiểu được ngôn ngữ tự nhiên. Phần này chúng em sẽ đề cập đến một số mô hình biểu diễn dữ liệu từ dạng text sang vector số, cụ thể là biểu diễn các từ trong ngôn ngữ tự nhiên thành các vector số.
+Trong khi máy tính chỉ làm việc (tính toán) với các con số, các vector. Làm thế nào để máy tính có thể hiểu được ngôn ngữ tự nhiên. Phần này chúng em sẽ đề cập đến một số mô hình biểu diễn dữ liệu từ dạng text sang vector số, cụ thể là biểu diễn các từ trong ngôn ngữ tự nhiên thành các vector số (word embedding).
  
 \subsection{One-hot vector}
 Mô hình này biểu diễn mỗi từ thành một vector có số chiều là độ dài của từ điển ($\mathbb{R}^{|V|\times 1}$ ($|V|$ là kích thước của từ điển)). Tất cả các phần tử của vector one-hot của một từ có giá trị bằng 0 ngoại trừ vị trí của từ đó trong từ điển trong vector có giá trị bằng 1. Ví dụ từ \emph{a} là từ đầu tiên trong từ điển thì vector biểu diễn từ \emph{a} có dạng $w^a = [1,0,0,...,0]$
 \par Mô hình này sẽ biểu diễn các từ độc lập với nhau, 2 từ có có nghĩa tương tự nhau cũng bị xem như là khác nhau. Ví dụ độ tương đồng giữa 2 từ \emph{hotel} và \emph{motel} bằng với độ tương đồng giữa 2 từ \emph{hotel} và \emph{cat} (do $(w^{hotel})^Tw^{motel} = (w^{hotel})^Tw^{cat} = 0$)
 \par Mặt khác nếu kích thước của từ điển lớn thì sẽ gây lãng phí bộ nhớ khi biểu diễn một từ là vector có số chiều là độ dài của từ điển.
 
-\subsection{Mô hình Skip-gram} 
+\subsection{Mô hình dựa trên phương pháp lặp}
+Các mô hình này cho phép dự đoán các từ dựa trên ngữ cảnh (context) của nó. Một context $C$ của một từ trong một câu là tập $C$ từ xung quanh nó. Ví dụ câu:\\
+\centerline{\emph{"The cat jumped over puddle"}}\\[0.2cm]
+C = 2 context của từ \emph{"jumped"} (center word) là tập \{ \emph{"the", "cat", "over", "puddle"} \}.
+
+\subsubsection{Mô hình Continuous Bag of Words Model (CBOW)}
+Mô hình này sẽ đoán "\emph{center word}" dựa trên ngữ cảnh của nó trong câu (\emph{context}). Ví dụ cần dự đoán từ "\emph{jumbed}" dựa vào tập các từ \{ "\emph{the}", "\emph{cat}", "\emph{over}", "\emph{puddle}" \}.
+\par Đầu tiên cần khởi tạo 2 ma trận tham số $V \in \mathbb{R}^{n \times |D|}$, $U \in \mathbb{R}^{|V| \times n}$. $V$ là ma trận mà cột i là embedded vector $n$ chiều của từ thứ i trong từ điển khi nó được input vào mô hình, $U$ là ma trận mà hàng thứ i là embedded vector $n$ chiều của từ thứ i khi output ra khỏi mô hình.($n$ là số chiều của word vector mong muốn). Mô hình cần học cả hai ma trận $U$ và $V$ để có thể biểu diễn được các từ thành các vector. Để học được hai ma trận $U$, $V$ cần trải qua các bước: 
+\begin{enumerate}
+\item Tạo các one-hot vector cho các từ trong tập context ($x^{c-m}, ..., x^{c-1}, x^{c+1}, ..., x^{c+m}$) (với $c$ là vị trí của center word trong câu, $m$ là kích thước của context ($C$))
+\item Tính các embedded word vector cho mỗi context ($v_{c-m} = Vx^{x-m}, v{c-m+1} = Vx^{c-m+1}, ...., v_{c+m} = Vx^{c+m}$).
+\item Tính trung bình các vector $\hat{v} = \frac{v_{c-m} + v_{c-m+1} + .... + v_{c+m}}{2m}$
+\item Sinh ra vector đánh giá $z = U\hat{v}$
+\item Tính vector đầu ra $\hat{y} = softmax(z)$
+\item Tính lỗi của vector đầu ra so với vector của center word thực tế sử dụng hàm cross-entropy
+$$H(\hat{y},y) = -\sum_{j=1}^{|V|} y_jlog(\hat{y}_j)$$
+\item Update các ma trận $U, V$ để cực tiểu hóa hàm lỗi.
+\end{enumerate}
+
+\subsubsection{Mô hình Skip-gram}
+Tương tự như CBOW, nhưng skip-gram sẽ đoán các tập các từ context dựa vào center word. Mục đích của mô hình vẫn là học ra hai ma trận $U, V$. Để học được hai ma trận $U, V$ cần trải qua các bước:
+\begin{enumerate}
+\item Tạo one-hot vector cho center word $x$.
+\item Tính embedded word vector cho $x$: $v_c = Vx$
+\item Tính 2m vector đánh giá $u_{c-m} = u_{c-m+1} = .... = u_{c+m} = u = Uv_c$
+\item Với mỗi vector $u_i$ tính vector đầu ra $y_i = softmax(u)$
+\item Hàm lỗi trở thành:
+$$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
+Update các ma trận $U, V$ để cực tiểu hóa hàm lỗi sử dụng chiến lược \emph{Stochastic Gradient Desecent}
+
+
+\end{enumerate} 
 
 \section{SVM}
 
@@ -211,9 +243,47 @@ Mạng LSTM là một dạng đặc biệt của mạng RNN. LSTM được thi�
 
 
 \chapter{Bài toán áp dụng}
+\section{Giới thiệu bài toán}
+Bài toán phân tích quan điểm là một trong những bài toán xử lý ngôn ngữ tự nhiên đang được áp dụng rộng rãi trong các ứng dụng lấy ý kiến phản hồi của khách hàng về các sản phẩm. Tương tự như bài toán phân loại văn bản, bài toán phân tích quan điểm cũng phân loại và gán nhán cho các đoạn văn, các câu văn. Bài toán có thể đơn giản chỉ có 2 nhãn như: tiêu cực, tích cực hoặc cũng có thể có nhiều nhãn: rất tích cực, tích cực, trung bình, tiêu cực, rất tiêu cực. 
 
+
+\section{Kết quả thực nghiệm}
+\subsection{Dữ liệu thực nghiệm}
+Bộ dữ liệu sử dụng là bộ dữ liệu IMDB. Bộ dữ liệu bao gồm các câu đánh giá phim và bao gồm 2 nhãn. Bộ dữ liệu bao gồm 25000 review cho training và 25000 reviews cho bộ test. Bài toán yêu cầu xác định một câu đánh giá phim là tích cực hay tiêu cực.
+
+\subsection{Kết quả thực nghiệm}
+\subsubsection{SVM}
+
+
+\subsubsection{LSTM}
+Sử dụng thư viện keras:
+\begin{enumerate}
+\item Mô hình hóa dữ liệu
+\begin{itemize}
+\item Mỗi đánh giá phim chỉ lấy 500 từ. Nếu đánh giá nào có số từ dài hơn sẽ bị chặt bớt còn nếu đánh giá nào có ít từ hơn sẽ chèn thêm các số 0.
+\item Chiều của word embedded vector là 32.
+\end{itemize}
+\item Training: Mô hình áp dụng:
+$$ INPUT \rightarrow WordEmbedding \rightarrow LSTM \rightarrow sigmoid \rightarrow output$$
+\begin{itemize}
+\item Đầu vào là câu gồm 500 từ
+\item Chuyển thành 500 vector số thực 32 chiều.
+\item Mỗi vector là đầu vào của một module trong LSTM, và 100 module cuối cùng đưa ra output 
+\item Output của 100 module đưa vào neuron với hàm tác động là sigmoid để đưa ra output là 0 hoặc 1 (tiêu cực hay tích cực)
+\end{itemize}
+\item Môi trường thực nghiệm:
+\begin{itemize}
+\item Hệ điều hành Unbutun 16.04 64 bit
+\item Intel Core i5-4210U CPU 1.70GHz $\times$ 4
+\item Ngôn ngữ lập trình Python
+\item Thư viện hỗ trợ Keras
+\end{itemize}
+\item Kết quả:
+\end{enumerate}
 
 \chapter{Kết luận} 
+
+
 \begin{thebibliography}{9}
 \bibitem{1} \url{http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/}
 \bibitem{2} \url{http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
