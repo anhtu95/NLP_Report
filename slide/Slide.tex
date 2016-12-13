@@ -116,10 +116,15 @@ Lớp:CNTT2.02-K58
 \item C = 2 
 \item context của từ \emph{"jumped"}: \{ \emph{"the", "cat", "over", "puddle"} \}.
 \end{itemize}
-\item Khởi tạo 2 ma trận tham số $V \in \mathbb{R}^{n \times |D|}$, $U \in \mathbb{R}^{|V| \times n}$
+\item Đầu vào: Tập các câu
+\item Đầu ra: Embedded vector của các từ trong từ điển
+\item Cần học 2 ma trận tham số $V \in \mathbb{R}^{n \times |D|}$, $U \in \mathbb{R}^{|D| \times n}$
+\begin{itemize}
 \item $n$ là số chiều của word vector mong muốn
 \item Cột i của ma trận $V$ là embedded vector $n$ chiều của từ thứ i trong từ điển khi nó được input vào mô hình, 
 \item Hàng thứ i của ma trận $U$ là embedded vector $n$ chiều của từ thứ i khi output ra khỏi mô hình.
+\end{itemize}
+\item $U$ là ma trận các embedded vector đầu ra
 \end{itemize}}
 
 \only<2>{\begin{itemize}
