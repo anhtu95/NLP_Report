@@ -164,7 +164,7 @@ tượng cần phân lớp được biểu diễn bởi một tập rất lớn
 các thuộc tính)\\
 
 
-\subsection{Cơ sở lý thuyết}
+\subsubsection{Cơ sở lý thuyết}
 Biểu diễn tập huấn luyện 
 $${x_1, y_1}, (x_2,y_2),...(x_r,y_r)$$
 \begin{itemize}
@@ -319,14 +319,24 @@ Bài toán phân tích quan điểm là một trong những bài toán xử lý 
 
 
 \section{Kết quả thực nghiệm}
-\subsection{Dữ liệu thực nghiệm}
+
+
+\subsection{SVM}
+Bộ dữ liệu sử dụng là bộ tiwer với 10294 câu 3 nhãn.
+Stopword có  424 từ
+\begin{enumerate}
+\item Xử lý dữ liệu loại bỏ url, tên riêng, các từ chưa đúng bằng biểu thức chính quy
+\item Sử dụng biểu diễn từ one-hot vector
+\item Sử dụng thư viện hỗ trợ trên ngôn ngữ python regex,sklearn, csv
+\item Tham số mô hình C=1.0 hàm nhân: linear chế độ one vs one 
+\item Tập train 8000 tập test 1924
+\item Kết quả đạt được khoảng 66$\%$
+\end{enumerate}
+
+
+\subsection{LSTM}
 Bộ dữ liệu sử dụng là bộ dữ liệu IMDB. Bộ dữ liệu bao gồm các câu đánh giá phim và bao gồm 2 nhãn. Bộ dữ liệu bao gồm 25000 review cho training và 25000 reviews cho bộ test. Bài toán yêu cầu xác định một câu đánh giá phim là tích cực hay tiêu cực.
 
-\subsection{Kết quả thực nghiệm}
-\subsubsection{SVM}
-
-
-\subsubsection{LSTM}
 Sử dụng thư viện keras:
 \begin{enumerate}
 \item Mô hình hóa dữ liệu
@@ -361,14 +371,27 @@ Accuracy: 84.97\% \\
 }
 \end{enumerate}
 
-\chapter{Kết luận} 
+\chapter{Kết luận}
+Dựa vào kết quả thư được sau quá trình thử nghiệm chúng em nhận thấy rằng SVM và mạng LSTM là hai phương pháp hiệu quả cho bài toán phân tích quan điểm. Mạng LTSM là phương pháp ra đời sau nhưng thể hiện được hiệu quả vượt trội cũng như là một ngôi sao sáng trong DeepLearning. SVM là một phương pháp học máy truyền thống cũng hiệu quả cho các bài toán liên quan đến ngôn ngũ tự nhiên. 
+\section{Khó khăn gặp phải}
+\begin{itemize}
+\item Cài đặt trên ngôn ngữ python
+\item Tài nguyên máy không cho phép xử lý với các bộ dữ liệu lớn
 
+\end{itemize}
+\section{Những điều chưa đạt được}
+\begin{itemize}
+\item Thư nghiệm nhiều hơn các phương pháp chọn đặc trưng cho SVM
+\item Cho các phương pháp chạy trên cùng một tập dữ liệu để so sánh 
+\end{itemize}
 
 \begin{thebibliography}{9}
 \bibitem{1} \url{http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/}
 \bibitem{2} \url{http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
 \bibitem{3} \url{http://cs224d.stanford.edu/syllabus.html}
 \bibitem{4} \url{https://ongxuanhong.wordpress.com/2016/09/16/long-short-term-memory-lstm/}
+\bibitem{5} \url{https://www.ravikiranj.net/posts/2012/code/how-build-twitter-sentiment-analyzer/}
+\bibitem{5} \url{http://scikit-learn.org/stable/modules/svm.html}
 \end{thebibliography}
 
 

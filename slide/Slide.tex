@@ -158,8 +158,94 @@ $$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
 \section{Các phương pháp áp dụng}
 \subsection{SVM}
 \begin{frame}{SVM}
-\end{frame}
+Biểu diễn tập huấn luyện 
+$${x_1, y_1}, (x_2,y_2),...(x_r,y_r)$$
+\begin{itemize}
+\item $x_i$ là một vectơ đầu vào $x_i \subseteq R^n$
+\item $y_i\in{1,-1}$ là một nhãn lớp
+Hàm phân tách tuyến tính 
+$$f(x)=<w.x> +b$$
+w là vectơ trọng số các thuộc tính, b là một giá trị số thực\\
 
+
+\end{itemize}
+\end{frame}
+\begin{frame}{SVM}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=3.0]{margin-svm.png}
+\caption{Siêu phẳng phân tách}
+\label{fig:margin-svm}
+\end{figure}
+
+\end{frame}
+\begin{frame}{SVM}
+Khoảng cách từ một điểm đến siêu phẳng 
+$$\frac{|<w.x_i>+b|}{||w||} $$
+$$margin=d_+ +d_-=\frac{2}{||w||}$$ 
+Tương đương bài toán cực tiểu hóa $\frac{<w.w>}{2}$ với điều kiện 
+$$ \lbrace\begin{array}{l}
+ <w.x_i>+b \geq 1 if y_i=1\\ <w.x_i>+b
+    \leq -1  if y_i=-1 \end{array} $$
+\end{frame}
+\begin{frame}{SVM}
+Áp dụng phương pháp Lagrange  
+$$ L= 1/2 ||\overline{w}||^2 -\sum\alpha_i[y_i(\overline{w}.\overline{x_i} +b)-1] $$
+Điều kiện 
+$$ \frac{ \partial}{\partial\overline{w}}
+=\overline{w}- \sum \alpha_i y_i x_i=0 \Longrightarrow \overline{•}e{w}=\sum \alpha_i y_i \overline{x_i} $$
+$$\frac{ \partial}{\partial b}=-\sum \alpha_i y_i \Longrightarrow \sum x_i y_i=0$$ 
+Thế vào ta được biểu thức :
+$$L_D(\alpha)=\sum_{i=1}^r \alpha_i-1/2 \sum_{i,j=1}^{r}\alpha_i \alpha_j y_i y_j<x_i.x_j> $$
+Điều kiện:
+$$\{ \begin{array}{l}
+\sum_{i=1 } ^{r} \alpha_i y_i =0 \\
+\alpha_i \geq 0 \forall i=1..r
+\end{array}
+$$
+\end{frame}
+\begin{frame}{SVM}
+Áp dụng phương pháp Lagrange  
+$$ L= 1/2 ||\overline{w}||^2 -\sum\alpha_i[y_i(\overline{w}.\overline{x_i} +b)-1] $$
+Điều kiện 
+$$ \frac{ \partial}{\partial\overline{w}}
+=\overline{w}- \sum \alpha_i y_i x_i=0 \Longrightarrow \overline{w}=\sum \alpha_i y_i \overline{x_i} $$
+$$\frac{ \partial}{\partial b}=-\sum \alpha_i y_i \Longrightarrow \sum x_i y_i=0$$ 
+Thế vào ta được biểu thức :
+$$L_D(\alpha)=\sum_{i=1}^r \alpha_i-1/2 \sum_{i,j=1}^{r}\alpha_i \alpha_j y_i y_j<x_i.x_j> $$
+Điều kiện:
+$$\{ \begin{array}{l}
+\sum_{i=1 } ^{r} \alpha_i y_i =0 \\
+\alpha_i \geq 0 \forall i=1..r
+\end{array}
+$$
+\end{frame}
+\begin{frame}{SVM}
+Dung phương pháp lặp giải cuối cùng thu được
+$$w^* =\sum_{x_i \in SV} \alpha_i y_i x_i  $$
+$$b^*=y_k-<w*,x_k>$$
+Để phân lớp cho giá trị mới ta tìm dấu của siêu phẳng $$ f(x)=\sum_{x_i \in SV} \alpha_i y_i <x_i .x>+b^*$$
+\end{frame}
+\begin{frame}{SVM}
+Nới lỏng điểu kiện :
+$$L_D(\alpha)=\sum_{i=1}^r \alpha_i-1/2 \sum_{i,j=1}^{r}\alpha_i \alpha_j y_i y_j<x_i.x_j> $$
+$$
+\{ \begin{array}{l}
+\sum_{i=1 } ^{r} \alpha_i y_i =0 \\
+0 \leq \alpha_i \leq C \forall i=1..r
+\end{array}
+$$
+\end{frame}
+\begin{frame}{SVM}
+Phân lớp không tuyến tính một vài hàm nhân:\\
+Đa thức $K(x,z)=(<x.z>+\Theta)^d $\\
+Gaussian RBF $K(x,z)=e^{\frac{||x-z||^2}{2*\sigma}}$ trong đó $\sigma >0$\\
+Phân lớp nhiều nhãn 2 chiến lược :
+\begin{itemize}
+\item one-versus-all
+\item one-versus-one 
+\end{itemize}
+\end{frame}
 \subsection{LSTM}
 \begin{frame}{RNN}
 \begin{itemize}
@@ -180,7 +266,7 @@ $$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
 \begin{textblock*}{3cm}(0.5cm,2.5cm)
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.36]{rnn_tanh.jpg}
+\includegraphics[scale=0.36]{rnn_tanh.png}
 \caption{Mô hình RNN chuẩn}
 \end{figure}
 \end{textblock*}
@@ -225,7 +311,7 @@ $$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
 \end{frame}
 
 \section{Kết quả thực nghiệm}
-\subsection{Dữ liệu thực nghiệm}
+\subsection{LSTM}
 \begin{frame}{Dữ liệu thực nghiệm}
 \begin{itemize}
 \item Bộ dữ liệu IMDB
@@ -242,8 +328,7 @@ $$H = \sum_{j=c-m}^{c+m} H(\hat{y}_j,y_j) \quad j \neq c$$
 \end{itemize}
 \end{frame}
 
-\subsection{Kết quả}
-\begin{frame}{LSTM}
+\begin{frame}{Kết quả-LSTM}
 \begin{itemize}
 \item Mô hình: $INPUT \rightarrow WordEmbedding \rightarrow LSTM \rightarrow sigmoid \rightarrow output$
 \begin{itemize}
@@ -269,6 +354,35 @@ Accuracy: 84.97\% \\
 }
 \end{itemize}
 \end{frame}
+\subsection{SVM}
+\begin{frame}{Dữ liệu thực nghiệm-SVM}
+Bộ dữ liệu sử dụng là bộ twiter với 10924 câu, có 3 nhãn positive,neutral,negative. 
+Tập Stopword có  424 từ.
+Cài đặt:
+\begin{enumerate}
+\item Xử lý dữ liệu loại bỏ url, tên riêng, các từ chưa đúng bằng biểu thức chính quy
+\item Sử dụng biểu diễn từ one-hot vector
+\item Sử dụng thư viện hỗ trợ trên ngôn ngữ python regex,sklearn, csv
+\item Tham số mô hình C=1.0 hàm nhân: linear chế độ one vs one 
+\item Tập train 8000 tập test 1924
+\item Kết quả đạt được khoảng 66$\%$
+\end{enumerate}
+\end{frame}
+\begin{frame}{Kết luận}
 
+Khó khăn gặp phải
+\begin{itemize}
+\item Cài đặt trên ngôn ngữ python
+\item Tài nguyên máy không cho phép xử lý với các bộ dữ liệu lớn
+\end{itemize}
 
+Những điều chưa đạt được 
+\begin{itemize}
+\item Thư nghiệm nhiều hơn các phương pháp chọn đặc trưng cho SVM
+\item Cho các phương pháp chạy trên cùng một tập dữ liệu để so sánh 
+\end{itemize}
+\end{frame}
+\begin{frame}{Cảm ơn cô và các bạn đã lắng nghe}
+\includegraphics[scale=0.4]{thanks.jpg}
+\end{frame}
 \end{document}
